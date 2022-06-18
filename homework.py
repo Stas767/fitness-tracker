@@ -122,6 +122,8 @@ class Swimming(Training):
         super().__init__(action, duration, weight)
         self.length_pool = length_pool
         self.count_pool = count_pool
+        self.coeff_calorie_1 = 1.1
+        self.coeff_calorie_2 = 2
 
     def get_mean_speed(self) -> float:
         """Получить среднюю скорость движения."""
@@ -130,7 +132,9 @@ class Swimming(Training):
         return average_speed
 
     def get_spent_calories(self) -> float:
-        callories = (Swimming.get_mean_speed(self) + 1.1) * 2 * self.weight
+        callories = ((Swimming.get_mean_speed(self)
+                     + self.coeff_calorie_1) * self.coeff_calorie_2
+                     * self.weight)
         return callories
 
 

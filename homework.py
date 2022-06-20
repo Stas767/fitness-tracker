@@ -1,5 +1,4 @@
 from dataclasses import dataclass, asdict
-from re import T
 from typing import Dict, Type
 
 
@@ -22,13 +21,6 @@ class InfoMessage:
     calories: float
 
     def get_message(self) -> str:
-        # магия какая-то.До конца не понял как это сдеалал.
-        # Изначально хотел создать переменную в классе
-        # и через функцию asdict преобразовать даные в словарь
-        # и затем их подставить. Но нашел более изящный метод.
-        # Как я понял, все это автоматом происходит
-        # после написания **asdict(self)
-
         text = self.MESSAGE.format(**asdict(self))
         return text
 

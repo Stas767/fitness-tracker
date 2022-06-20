@@ -1,4 +1,6 @@
 from dataclasses import dataclass, asdict
+from re import T
+from typing import Dict, Type
 
 
 @dataclass
@@ -126,18 +128,15 @@ class Swimming(Training):
 
 def read_package(workout_type: str, data: list) -> Training:
     """Прочитать данные полученные от датчиков."""
-    dict_tren: type[str] = {
+    dict_tren: Dict[str, Type[Training]] = {
         'SWM': Swimming,
         'RUN': Running,
         'WLK': SportsWalking
     }
-    # обработал иссключение,
-    # если вдруг в входных данных не будет нужного ключа к тренировке
     if workout_type not in dict_tren.keys():
         raise TypeError('Нет такой тренировки! Доступные: "SWM", "RUN", "WLK"')
-    else:
-        tren_class = dict_tren.get(workout_type)(*data)
-        return tren_class
+    tren_class = dict_tren[workout_type](*data)
+    return tren_class
 
 
 def main(training: Training) -> None:
